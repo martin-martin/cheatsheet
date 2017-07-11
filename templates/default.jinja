@@ -1,0 +1,53 @@
+<!-- This template is a moddified version of the templates used here
+     https://github.com/kablamo/readline-cheat-sheet
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <style>
+      {% include "bootstrap_3.1.0_css_bootstrap.css" %}
+      {% include "bootstrap.theme.min.css" %}
+      {% include "style.css" %}
+      h1      { color: {{ titlecolor }} }
+    </style>
+  </head>
+  <body>
+    <div id="everything">
+      <div id="main" class="wrapper clearfix container">
+        <div class="row col-lg-12 col-md-12">
+          <h1>{{ title }}</h1>
+          {{ description }}
+          <br>&nbsp;
+        </div>
+
+        <div class="row">
+        {% for column in columns -%}
+          <div class="col-lg-6 col-md-6">
+          {% for table in column -%}
+          <h2>{{ table.name }}</h2>
+          <table>
+            {% for row in table.rows -%}
+            <tr>
+              <th>
+                {% for cmd in row.cmds -%}
+                <kbd>{{ cmd }}</kbd>
+                <br>
+                {% endfor -%}
+              </th>
+              <td>
+                {{ row.help }}
+              </td>
+            </tr>
+            {% endfor -%}
+          </table>
+          {% endfor -%}
+          </div>
+        {% endfor -%}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

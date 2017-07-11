@@ -1,0 +1,119 @@
+#!/usr/bin/env python3
+# Cheatsheet generator
+# Copyright © 2017, Damir Jelić
+#
+# Permission to use, copy, modify, and/or distribute this software for
+# any purpose with or without fee is hereby granted, provided that the
+# above copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+# SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER
+# RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
+# NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE
+# USE OR PERFORMANCE OF THIS SOFTWARE.
+
+import os
+import sys
+import argparse
+from enum import Enum
+from functools import partial
+
+import yaml
+from clint.textui import colored, indent, puts
+from jinja2 import Environment, FileSystemLoader
+
+TEMPLATE_PATH = os.path.abspath('./templates')
+
+class Format(Enum):
+    html = 1
+    text = 2
+
+def generate_plaintext(data, outfile):
+    # TODO fix color generation
+    pputs = partial(puts, stream=outfile.write)
+
+    pputs(colored.yellow(data['title'], always=True))
+    with indent(4):
+        pputs('─' * 20)
+        pputs(colored.blue(data['title'], always=True))
+        pputs()
+
+    separator = ' ─ '
+
+    for column in data['columns']:
+        for table in column:
+            length = len(max([row['cmds'][0] for row in table['rows']],
+                             key=len))
+
+            longest_row = max([row['cmds'][0] + separator + ' ' *
+                               (length - len(row['cmds'][0])) + row['help'] for row
+                               in table['rows']], key=len)
+            header_length = len(longest_row)
+
+            with indent(4):
+                pputs(colored.green(table['name'], always=True) + "")
+                pputs('─' * header_length)
+
+            for row in table['rows']:
+                whitespace = ' ' * (length - len(row['cmds'][0]))
+                with indent(4):
+                    pputs(colored.blue(row['cmds'][0], always=True) + whitespace + ' - ' +
+                          colored.cyan(row['help'], always=True))
+            pputs()
+
+def generate_html(data, outfile, template_file, template_dir):
+    env = Environment(
+        autoescape=True,
+        loader=FileSystemLoader(template_dir),
+        trim_blocks=True)
+
+    template = env.get_template(os.path.basename(template_file.name))
+    outfile.write(template.render(title=data['title'],
+                                  description=data['description'],
+                                  titlecolor=data['titlecolor'],
+                                  columns=data['columns']))
+
+def generate_cheatsheets(infile, outfile, template_file, template_dir,
+                         out_format):
+    data = None
+
+    # TODO add some checks to see if the data is valid
+    data = yaml.load(infile)
+
+    if out_format == Format.text:
+        generate_plaintext(data, outfile)
+    elif out_format == Format.html:
+        generate_html(data, outfile, template_file, template_dir)
+
+def is_dir(dirname):
+    """Checks if a string is an actual directory"""
+    if not os.path.isdir(dirname):
+        msg = "{} is not a directory".format(dirname)
+        raise argparse.ArgumentTypeError(msg)
+    else:
+        return dirname
+
+def main():
+    # TODO add help text
+    parser = argparse.ArgumentParser()
+    parser.add_argument('infile', type=argparse.FileType('r'),
+                        default=sys.stdin)
+    parser.add_argument('-o', '--outfile', nargs='?',
+                        type=argparse.FileType('w'), default=sys.stdout)
+    parser.add_argument('--template-file', nargs='?',
+                        type=argparse.FileType('r'),
+                        default=os.path.join(TEMPLATE_PATH, 'default.jinja'))
+    parser.add_argument('-t', '--template-dir', nargs='?', type=is_dir,
+                        default=TEMPLATE_PATH)
+    parser.add_argument('-O', '--output-format', nargs='?',
+                        choices=[o.name for o in Format], default=Format.text)
+
+    args = parser.parse_args()
+
+    generate_cheatsheets(args.infile, args.outfile, args.template_file,
+                         args.template_dir, Format[args.output_format])
+
+if __name__ == "__main__":
+    main()

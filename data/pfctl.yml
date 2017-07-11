@@ -1,0 +1,110 @@
+# pfctl cheatsheet adapted from https://gist.github.com/tracphil/4353170
+---
+title: pfctl cheatsheet
+description: OpenBSD packet filter control thing
+titlecolor: orange
+
+columns:
+-
+  - name: General pfctl Commands
+    rows:
+      - cmds:
+          - pfctl -d
+        help: Disable packet filtering.
+      - cmds:
+          - pfctl -e
+        help: Enable packet filtering.
+      - cmds:
+
+          - pfctl -v
+        help: Be verbose.
+  - name: Loading rules
+    rows:
+      - cmds:
+          - pfctl -f /etc/pf.conf
+        help: Load /etc/pf.conf.
+      - cmds:
+          - pfctl -n -f /etc/pf.conf
+        help: Parse /etc/pf.conf but don't load it.
+      - cmds:
+          - pfctl -R -f /etc/pf.conf
+        help: Load only the filter rules from /etc/pf.conf.
+      - cmds:
+          - pfctl -N -f /etc/pf.conf
+        help: Load only the NAT rules from /etc/pf.conf.
+      - cmds:
+          - pfctl -O -f /etc/pf.conf
+        help: Load only the option rules from /etc/pf.conf.
+  - name: Clearing PF Rules & Counters
+    rows:
+      - cmds:
+          - pfctl -F all
+        help: Flush all rules and counters.
+      - cmds:
+          - pfctl -F rules
+        help: Flush only the rules.
+      - cmds:
+          - pfctl -F queue
+        help: Flush only the queue's.
+      - cmds:
+          - pfctl -F nat
+        help: Flush only the NAT rules.
+      - cmds:
+          - pfctl -F info
+        help: Flush all stats that aren't part of a rule.
+      - cmds:
+          - pfctl -z
+        help: Clear all counters.
+-
+  - name: Output PF Information
+    rows:
+      - cmds:
+          - pfctl -s rules
+        help: Show filter information.
+      - cmds:
+          - pfctl -vvsr show
+        help: Show more rules info with rule numbers.
+      - cmds:
+          - pfctl -s state
+        help: Show the contents of the state table.
+      - cmds:
+          - pfctl -s info
+        help: Show statistics for state tables and packet normalization.
+      - cmds:
+          - pfctl -s all
+        help: Show everything.
+  - name: Maintaining PF Tables
+    rows:
+      - cmds:
+          - pfctl -t hosts -T show
+        help: Show table hosts.
+      - cmds:
+          - pfctl -vvsTables
+        help: View global table information about all tables.
+      - cmds:
+          - pfctl -t hosts -T add 192.168.1.50
+        help: Add an entry to hosts table.
+      - cmds:
+          - pfctl -t hosts -T add 192.168.1.0/16
+        help: Add a network to table hosts
+      - cmds:
+          - pfctl -t hosts -T delete 192.168.1.0/16
+        help: Delete a network from table hosts.
+      - cmds:
+          - pfctl -t hosts -T flush
+        help: Remove all entries from table hosts.
+      - cmds:
+          - pfctl -t hosts -T kill
+        help: Delete table hosts entirely.
+      - cmds:
+          - pfctl -t hosts -T test 192.168.1.40
+        help: Find IP address 192.168.1.40 in table hosts.
+      - cmds:
+          - pfctl -T load -f /etc/pf.conf
+        help: Load a new table definition.
+      - cmds:
+          - pfctl -t hosts -T show -v
+        help: Output stats for each IP address in table hosts.
+      - cmds:
+          - pfctl -t hosts -T zero
+        help: Reset all counters for table hosts.
