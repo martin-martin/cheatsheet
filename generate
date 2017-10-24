@@ -37,7 +37,7 @@ def generate_plaintext(data, outfile):
     pputs(colored.yellow(data['title'], always=True))
     with indent(4):
         pputs('─' * 20)
-        pputs(colored.blue(data['title'], always=True))
+        pputs(colored.blue(data['description'], always=True))
         pputs()
 
     separator = ' ─ '
