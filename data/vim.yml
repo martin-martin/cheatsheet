@@ -1,0 +1,201 @@
+# A small vim cheatsheet
+---
+title: vim cheatsheet
+description: Slightly less common vim commands
+titlecolor: orange
+
+columns:
+-
+    - name: Normal mode
+      rows:
+        - cmds:
+            - fx
+          help : forward to next occurrence of character x
+        - cmds:
+            - tx
+          help : forward to the character before the next occurrence of character x
+        - cmds:
+            - Fx
+          help : backward to previous occurrence of character x
+        - cmds:
+            - Tx
+          help : backward to the character before the previous occurrence of character x
+        - cmds:
+            - B
+          help : jump backwards to the start of a word (words can contain punctuation)
+        - cmds:
+            - gv
+          help : select the last visual selection
+        - cmds:
+            - ge
+          help : move backwards to end of previous word
+        - cmds:
+            - d/
+          help : search motion to delete
+        - cmds:
+            - q/
+          help : open command line window
+        - cmds:
+            - zj
+          help : go to next fold
+        - cmds:
+            - zk
+          help : go to prev fold
+    - name: Text objects (use wherever a motion is valid)
+      rows:
+        - cmds:
+            - a(
+          help : select a pair of parentheses (ab works as well)
+        - cmds:
+            - a{
+          help : select a pair of braces (aB works as well)
+        - cmds:
+            - i(
+          help : select the text between a pair of parentheses
+        - cmds:
+            - i{
+          help : select the text between a pair of braces
+        - cmds:
+            - at
+          help : select a pair of <xml>tags</xml>
+        - cmds:
+            - as
+          help : select a sentence plus space(s)
+        - cmds:
+            - is
+          help : select a sentence
+        - cmds:
+            - ap
+          help : select a paragraph plus blank line(s)
+        - cmds:
+            - ip
+          help : select a paragraph
+    - name: Registers
+      rows:
+        - cmds:
+            - \"
+          help: default register
+        - cmds:
+            - "0"
+          help: yank register
+        - cmds:
+            - _
+          help: black hole register
+        - cmds:
+            - +
+          help: system clipboard
+    - name: Insert mode
+      rows:
+        - cmds:
+             - <C-r>"
+          help:  paste from default register
+        - cmds:
+            - <C-r>=
+          help:  evaluate expression
+-
+    - name: Search and pattern matching
+      rows:
+        - cmds:
+            - /\v
+          help : enable very magic
+        - cmds:
+            - /\V
+          help : enables very nomagic
+        - cmds:
+            - gn
+          help : enable character wise visual mode select next search match
+        - cmds:
+            - gN
+          help : enable character wise visual mode select previous search match
+        - cmds:
+            - /<CR>
+          help: repeat the last search
+        - cmds:
+            - /search/e<CR>
+          help: search and place the cursor at the end of the match
+        - cmds:
+            - <C-r><C-w>
+          help:  autocomplete the search field using the current preview match
+    - name: Substitute (flags)
+      rows:
+        - cmds:
+            - g
+          help: global substitution
+        - cmds:
+            - c
+          help: ask for confirmation before substituting
+        - cmds:
+            - n
+          help: just count the number of matches, don't substitute
+        - cmds:
+            - g&
+          help: repeat last substitution globally
+    - name: Plugins
+      rows:
+        - cmds:
+            - ga
+          help: easy align       [ ga<motion><character to align around> ]
+        - cmds:
+            - gs
+          help: sort motion      [ gs<motion> ]
+        - cmds:
+            - ys
+          help: add  surrounding [ ys<motion><character> ]
+        - cmds:
+            - ds
+          help: delete surrounding
+        - cmds:
+            - cs
+          help: change surrounding
+
+    - name: Spell check
+      rows:
+        - cmds:
+            - "[s"
+          help : jump to the next spelling error
+        - cmds:
+            - "]s"
+          help  : jump to the previous spelling error
+        - cmds:
+            - z=
+          help  : suggest corrections for the current word
+        - cmds:
+            - zg
+          help  : add the current word to the spell file
+        - cmds:
+            - zw
+          help  : remove the current word from the spell file
+        - cmds:
+            -  <C-x>s
+          help: scan backwards for misspelled words and
+    - name: Split window management
+      rows:
+        - cmds:
+            - <C-w>s
+          help: split window horizontally
+        - cmds:
+            - <C-w>v
+          help: split window vertically
+        - cmds:
+            - <C-w>c
+          help: close current window
+        - cmds:
+            - <C-w>o
+          help: leave only the current window open
+        - cmds:
+            - <C-w>=
+          help: equalize size of all windows
+        - cmds:
+            - <C-w>_
+          help: maximize height of the active window
+        - cmds:
+            - <C-w>|
+          help: maximize width of the active window
+        - cmds:
+            - <C-w>t
+          help: move active window to a new tab
+    - name: Ex mode
+      rows:
+        - cmds:
+            - <C-r>w
+          help: paste word under cursor
