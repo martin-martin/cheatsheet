@@ -1,0 +1,61 @@
+# A small Bash cheatsheet
+---
+title: UNIX Bash Basics
+description: Most important commands to navigate your UNIX OS
+titlecolor: #0071BD
+
+columns:
+  - - name: Important Commands
+      rows:
+        - cmds:
+            - man
+          help: Display help and information for a command
+          name: manual
+        - cmds:
+            - pwd
+          help: Display the absolute path to the folder your CLI is currently in
+          name: print working directory
+        - cmds:
+            - ls
+          help: List the content of the current directory
+          name: list
+        - cmds:
+            - cd
+          help: Switch to a different folder
+          name: change directory
+        - cmds:
+            - open
+          help: Open an existing program on your computer
+          name: open
+        - cmds:
+            - cp
+          help: Copy a file
+          name: copy
+        - cmds:
+            - mv
+          help: Move a file to a different location,or rename it in the same location
+          name: move
+        - cmds:
+            - rm
+          help: Delete a file
+          name: remove
+        - cmds:
+            - mkdir
+          help: Create a new empty folder
+          name: make directory
+        - cmds:
+            - rmdir
+          help: Delete an empty folder. The folder needs to be empty
+          name: remove directory
+        - cmds:
+            - ls -al
+          help: Display all contents of a folder including additional information
+        - cmds:
+            - rm -r
+          help: Delete everything in a nested directory structure, also folders with content
+        - cmds:
+            - cd ~
+          help: Navigate to your home directory
+        - cmds:
+            - cd ..
+          help: Move one directory up from your current location

@@ -17,17 +17,22 @@
   <body>
     <div id="everything">
       <div id="main" class="wrapper clearfix container">
-        <div class="row col-lg-12 col-md-12">
-          <h1>{{ title }}</h1>
-          {{ description }}
-          <br>&nbsp;
+        <div class="row">
+          <div class="col-lg-7 col-md-7">
+            <h1 class="h2">{{ title }}</h1>
+            {{ description }}
+            <br>&nbsp;
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <img src="templates/cn-logo-small.png" class="img-fluid">
+          </div>
         </div>
 
         <div class="row">
         {% for column in columns -%}
           <div class="col-lg-6 col-md-6">
           {% for table in column -%}
-          <h2>{{ table.name }}</h2>
+          <h2 class="h3">{{ table.name }}</h2>
           <table>
             {% for row in table.rows -%}
             <tr>
