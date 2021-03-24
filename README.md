@@ -1,13 +1,16 @@
-# Cheat sheet generator
+# Cheat Sheet Generator
 
-A cheat sheet generator using yaml input files and outputing html and text.
+A CodingNomads-themed cheat sheet generator that uses `.yml` input files and outputs `.html` and `.txt` files.
 
-## How to contribute
+## Instructions
 
-Clone the repo:
+1. Clone the repo `git clone https://github.com/CodingNomads/utils`.
+2. Add a new `.yml` file in the `data/` subdirectory. See the existing files to experiment with how to format your content.
+3. Run `make` in your CLI to generate the cheat sheets.
+4. Convert the `.html` file to `.pdf`.
+5. Add the new PDF cheat sheet file to <https://github.com/CodingNomads/cheatsheets>.
+6. Get the raw file URL and link the cheat sheet as a downloadable file in your course content.
 
-    git clone https://github.com/poljar/cheatsheet
+## Acknowledgements
 
-Add a new data file in the data subdirectory.
-
-Run make to generate the cheat sheets.
+Thanks to [@poljar](https://github.com/poljar/cheatsheet) for the original code repository.
