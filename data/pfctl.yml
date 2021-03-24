@@ -2,7 +2,7 @@
 ---
 title: pfctl cheatsheet
 description: OpenBSD packet filter control thing
-titlecolor: orange
+titlecolor: black
 
 columns:
 -
