@@ -11,6 +11,8 @@ A CodingNomads-themed cheat sheet generator that uses `.yml` input files and out
 5. Add the new PDF cheat sheet file to <https://github.com/CodingNomads/cheatsheets>.
 6. Get the raw file URL and link the cheat sheet as a downloadable file in your course content.
 
+You can change the style of the cheat sheets by editing the CSS in `templates/style.css`.
+
 ## Acknowledgements
 
 Thanks to [@poljar](https://github.com/poljar/cheatsheet) for the original code repository.
